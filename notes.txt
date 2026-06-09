@@ -1,0 +1,8 @@
+The PostgreSQL database is now accessible on port 5432.
+
+You can access the Adminer interface at http://localhost:8888 with these credentials:
+
+    System: PostgreSQL
+    Server: db
+    Username: postgres
+    Password: changemeinprod!
