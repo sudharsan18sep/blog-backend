@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -30,6 +32,12 @@ public class User {
 
     @Column(nullable = false)
     private LocalDateTime createAt;
+
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Post> post = new ArrayList<>();
+    //saving a user can save their new posts.
+    //Deleting a user deletes all their posts.
+    //Removing a post from the user's posts collection deletes that post from the databases
 
     @Override
     public boolean equals(Object o) {
