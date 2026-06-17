@@ -5,7 +5,9 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -43,6 +45,33 @@ public class Post {
     @JoinColumn(name = "authorId", nullable = false)
     @ManyToOne(fetch = FetchType.LAZY)
     private User author;
+
+    @JoinColumn( name = "category_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Category category;
+
+    //Rule of thumb
+    //
+    //Ask yourself:
+    //
+    //Can one A have many B's?
+    //
+    //Can one B have many A's?
+    //
+    //Yes + No → One-to-Many
+    //Yes + Yes → Many-to-Many
+    //
+    //For Posts and Tags:
+    //
+    //One Post → Many Tags ✅
+    //One Tag → Many Posts ✅
+    @ManyToMany
+    @JoinTable(
+            name = "post_tags",
+            joinColumns = @JoinColumn(name = "post_id"),
+            inverseJoinColumns = @JoinColumn(name ="tag_id")
+    )
+    private Set<Tag> tags = new HashSet<>();
 
     @Override
     public boolean equals(Object o) {
